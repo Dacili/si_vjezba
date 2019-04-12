@@ -40,22 +40,7 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
            
                 <Form>
                     <h1>Kreiraj zadaću <Badge color="primary">:)</Badge></h1>
-                    <FormGroup tag="fieldset">
-                        <legend>Predaja zadaće</legend>
-                        <FormGroup check>
-                            <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                            Preko informacionog sistema
-                            </Label>
-                        </FormGroup>
-                        <FormGroup check>
-                            <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                            Neelektronskim putem
-                            </Label>
-                        </FormGroup>
-                    </FormGroup>
-
+                   
                     <FormGroup>
                         <Label for="naziv">Naziv:</Label>
                         <Input type="text" name="naziv" id="naziv" placeholder="Upišite naziv" onChange = {this.nazivChange}/>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Table} from 'reactstrap';
+import { CustomInput, Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Table} from 'reactstrap';
 
 class DodavanjeTipovaFileova extends React.Component {
     constructor(props){
@@ -37,18 +37,7 @@ class DodavanjeTipovaFileova extends React.Component {
 
                     <FormGroup tag="fieldset">
                         <legend>Da li svi zadaci imaju iste tipove fileova:</legend>
-                        <FormGroup check>
-                            <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                            Da
-                            </Label>
-                        </FormGroup>
-                        <FormGroup check>
-                            <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                            Ne
-                            </Label>
-                        </FormGroup>
+                        <CustomInput type="switch" id="exampleCustomSwitch" name="customSwitch" label="DA" defaultChecked />
                     </FormGroup>
 
                     <FormGroup>
@@ -68,8 +57,8 @@ class DodavanjeTipovaFileova extends React.Component {
                                     <th scope="row">{kk}</th>
 
                                 {
-                                    kolone.map(jedno => <th scope="col"> 
-                                    <FormGroup check>
+                                    kolone.map(jedno => <th scope="col" > 
+                                            <FormGroup check>
                                                 <Label check>
                                                     <Input type="checkbox" />{' '}
                                                     .PDF
