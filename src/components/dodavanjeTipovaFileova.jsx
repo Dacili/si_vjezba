@@ -1,5 +1,5 @@
 import React from 'react'
-import { CustomInput, Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Table} from 'reactstrap';
+import { CustomInput, Form, FormGroup, Label, Input, Table} from 'reactstrap';
 import '../bootstrap.css';
 
 
@@ -7,6 +7,11 @@ class DodavanjeTipovaFileova extends React.Component {
     constructor(props){
         super(props)
     
+
+        this.state = {
+            oznaceno : false,
+            eksten : "pdf"
+        }
 
         this.toggle = this.toggle.bind(this);
         this.state = {
@@ -20,9 +25,84 @@ class DodavanjeTipovaFileova extends React.Component {
         }));
     }
 
+    istiTipoviFileova = () =>{
+        var jeLoznaceno = document.getElementById("switchTip");
+        
+        if(jeLoznaceno.checked === true){
+            this.setState({oznaceno:true});
+
+            var niz = ["pdf","doc","m","zip","txt"];
+
+            for(var j=0;j<niz.length;j++){
+                var s = document.getElementById("Zadatak 1" + niz[j]);
+                s.checked=false;
+            }
+
+            for(var i = 1; i<this.props.komponente.zadaci; i++){
+                    
+                var k=i+1;
+
+                for(var j=0;j<niz.length;j++){
+                    var s = document.getElementById("Zadatak " + k + niz[j]);
+                    s.disabled = true;
+                    s.checked=false;
+                }
+            }
+        }
+        else{
+            this.setState({oznaceno:false});
+
+            var niz = ["pdf","doc","m","zip","txt"];
+
+            for(var j=0;j<niz.length;j++){
+                var s = document.getElementById("Zadatak 1" + niz[j]);
+                s.checked=false;
+            }
+
+            for(var i = 1; i<this.props.komponente.zadaci; i++){
+                    
+                var k=i+1;
+
+                for(var j=0;j<niz.length;j++){
+                    var s = document.getElementById("Zadatak " + k + niz[j]);
+                    s.disabled = false;
+                    s.checked=false;
+                }
+            }
+
+        }
+    }
+
+    oznaciStaTreba = () => {
+
+        if(this.state.oznaceno==true){
+
+            var p = document.getElementById("Zadatak 1" + this.state.eksten);
+            console.log("da,ne" + this.state.eksten);
+            if(p.checked===true){
+                for(var i = 1; i<this.props.komponente.zadaci; i++){
+                    
+                    var k=i+1;
+                    var s = document.getElementById("Zadatak " + k + this.state.eksten);
+                    s.checked = true;
+                }
+            }else{
+                for(var i = 1; i<this.props.komponente.zadaci; i++){
+                    
+                    var k=i+1;
+                    var s = document.getElementById("Zadatak " + k + this.state.eksten);
+                    s.checked = false;
+                }
+
+            }
+        }
+        
+
+    }
+
 
     render() {
-        console.log(this.props.komponente.ime);
+        //console.log(this.props.komponente.ime);
         var kk = this.props.komponente.ime;
 
         var kolone  = [];
@@ -30,7 +110,7 @@ class DodavanjeTipovaFileova extends React.Component {
             kolone.push("Zadatak " + i);
         }
 
-        console.log(kolone)
+        //console.log(kolone)
 
         return(        
            <div>
@@ -39,7 +119,7 @@ class DodavanjeTipovaFileova extends React.Component {
 
                     <FormGroup tag="fieldset">
                         <legend>Da li svi zadaci imaju iste tipove fileova:</legend>
-                        <CustomInput type="switch" id="exampleCustomSwitch" name="customSwitch" label="DA" defaultChecked />
+                        <CustomInput type="switch" id="switchTip" name="customSwitch" label="DA"  onChange={this.istiTipoviFileova} />
                     </FormGroup>
 
                     <FormGroup>
@@ -60,33 +140,43 @@ class DodavanjeTipovaFileova extends React.Component {
 
                                 {
                                     kolone.map(jedno => <th scope="col" > 
-                                            <FormGroup check>
-                                                <Label check>
-                                                    <Input type="checkbox" />{' '}
-                                                    .PDF
+                                    <td >
+                                            <FormGroup check  >
+                                            <Input type="checkbox" id={jedno + "pdf"} onChange = { (e) => { this.state.eksten="pdf"; this.oznaciStaTreba();  } }/>{' '}
+                                                <Label check className="ml-4">
+                                                    .pdf
                                                 </Label>
                                             </FormGroup>
 
                                             <FormGroup check>
-                                                <Label check>
-                                                    <Input type="checkbox" />{' '}
+                                                <Input type="checkbox" id={jedno + "zip"} onChange = { (e) => { this.state.eksten="zip"; this.oznaciStaTreba();  }}/>{' '}
+                                                <Label check className="ml-4">
                                                     .zip
                                                 </Label>
                                             </FormGroup>
 
                                             <FormGroup check>
-                                                <Label check>
-                                                    <Input type="checkbox" />{' '}
+                                                <Input type="checkbox" id={jedno + "m"} onChange = { (e) => {this.state.eksten="m"; this.oznaciStaTreba();  }}/>{' '}
+                                                <Label check className="ml-4">
                                                     .m
                                                 </Label>
                                             </FormGroup>
 
                                             <FormGroup check>
-                                                <Label check>
-                                                    <Input type="checkbox" />{' '}
+                                                <Input type="checkbox" id={jedno + "doc"} onChange = { (e) => { this.state.eksten="doc"; this.oznaciStaTreba();  }}/>{' '}
+                                                <Label check className="ml-4">
                                                     .doc
                                                 </Label>
                                             </FormGroup>
+
+                                            <FormGroup check>
+                                                <Input type="checkbox" id={jedno + "txt"} onChange = { (e) => { this.state.eksten="txt"; this.oznaciStaTreba(); }}/>{' '}
+                                                <Label check className="ml-4">
+                                                    .txt
+                                                </Label>
+                                            </FormGroup>
+
+                                            </td>
                                         
                                     </th>)
                                 }
