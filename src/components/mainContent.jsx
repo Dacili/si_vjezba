@@ -1,6 +1,7 @@
 import React from 'react'
 import './mainContent.css'
-import OsnovniPodaciKreiranjaZadace from './osnovniPodaciKreiranjaZadaca'
+import OsnovniPodaciKreiranjaZadace from '../osnovniPodaciKreiranjaZadace'
+
 
 //import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 //import Globalize from 'globalize';
@@ -13,8 +14,9 @@ class MainContent extends React.Component {
 
     render() {
         return(        
-            <div className = "formaKreiranjaZadace" class="p-1 d-flex justify-content-center mb-3">
+            <div className = "formaKreiranjaZadace" class="p-1 d-flex justify-content-center">
                 <OsnovniPodaciKreiranjaZadace />
+                
             </div>
         )
     }
