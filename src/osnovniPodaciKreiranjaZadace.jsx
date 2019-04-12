@@ -2,6 +2,9 @@ import React from 'react'
 import { Badge, Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 
 import DodavanjeTipovaFileova from './components/dodavanjeTipovaFileova'
+import BodoviZadaca from './components/bodovi_zadaca'
+
+import './bootstrap.css'; 
 
 class OsnovniPodaciKreiranjaZadace extends React.Component {
     constructor(props){
@@ -34,7 +37,8 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
             zadaci: this.state.brojZadataka
         };
 
-        return(        
+        return(      
+            <div>
             <div class="p-1 d-flex justify-content-center mb-3">
             <div className = "formaKreiranjaZadace" class="col-lg-6 col-sm-12 left">
            
@@ -72,8 +76,13 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
                 <div class="col-lg-6 col-sm-12 right">
                     <DodavanjeTipovaFileova komponente = {komponente}/>
                 </div>
+             
 
             </div>
+               <div>
+             <BodoviZadaca broj_zad={komponente.zadaci} ></BodoviZadaca>
+          </div>
+          </div>  
         )
     }
 }

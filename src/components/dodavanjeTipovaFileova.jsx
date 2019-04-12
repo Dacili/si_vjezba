@@ -1,5 +1,7 @@
 import React from 'react'
 import { CustomInput, Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Table} from 'reactstrap';
+import '../bootstrap.css';
+
 
 class DodavanjeTipovaFileova extends React.Component {
     constructor(props){
