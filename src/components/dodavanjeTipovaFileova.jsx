@@ -2,29 +2,30 @@ import React from 'react'
 import { CustomInput, Form, FormGroup, Label, Input, Table} from 'reactstrap';
 import '../bootstrap.css';
 
+//BITNO!!!!!!
+ //ID-evi ovih checkboxova su Zadatak + broj zadatka + koja im je ekstenzija
 
 class DodavanjeTipovaFileova extends React.Component {
 
     constructor(props){
         super(props)
+
+        
+       
         this.state = {
+            //Oznaceno se odnosi na to da li je označen onaj element na DA (Da li želite da svi zadaci imaju isti broj bodova)
             oznaceno : false,
+            // u eksten spremam koja je zadnja kliknuta ekstenzija filea.
             eksten : "pdf"
         }
 
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            dropdownOpen: false
-        };
+        
     }
 
-    toggle() {
-        this.setState(prevState => ({
-            dropdownOpen: !prevState.dropdownOpen
-        }));
-    }
 
     istiTipoviFileova = () =>{
+
+        //Da li je označen onaj element na DA (Da li želite da svi zadaci imaju isti broj bodova)
         var jeLoznaceno = document.getElementById("switchTip");
         
         if(jeLoznaceno.checked === true){
@@ -32,11 +33,14 @@ class DodavanjeTipovaFileova extends React.Component {
 
             var niz = ["pdf","doc","m","zip","txt"];
 
+            //Ukoliko se izvršila promjena sa NE na DA, prođem kroz sve i označim da nisu čekirani jer mi je tako imalo smisla
+           //ID-evi ovih checkboxova su Zadatak + broj zadatka + koja im je ekstenzija primjer "Zadatak 1pdf" - sa odvojenim zadatak i ostalo :D
             for(var j=0;j<niz.length;j++){
                 var s = document.getElementById("Zadatak 1" + niz[j]);
                 s.checked=false;
             }
 
+            //Ovdje na promjenu disableam sve osim prvog i odznačim ih sve
             for(var i = 1; i<this.props.komponente.zadaci; i++){
                     
                 var k=i+1;
@@ -53,6 +57,8 @@ class DodavanjeTipovaFileova extends React.Component {
 
             niz = ["pdf","doc","m","zip","txt"];
 
+
+            //Ovdje kad je na NE, ali radim slične stvari, haman iste :D
             for( j=0;j<niz.length;j++){
                 s = document.getElementById("Zadatak 1" + niz[j]);
                 s.checked=false;
@@ -71,13 +77,17 @@ class DodavanjeTipovaFileova extends React.Component {
         }
     }
 
+
+    //Ova funkcija služi kada se klikne na prvu da se označe i svi sa tom ekstenzijom, ako je na DA
+
     oznaciStaTreba = () => {
 
         if(this.state.oznaceno===true){
 
             var p = document.getElementById("Zadatak 1" + this.state.eksten);
-            console.log("da,ne" + this.state.eksten);
+           
             if(p.checked===true){
+                //Preskoči prvi, ostale checkiraj
                 for(var i = 1; i<this.props.komponente.zadaci; i++){
                     
                     var k=i+1;
@@ -85,6 +95,7 @@ class DodavanjeTipovaFileova extends React.Component {
                     s.checked = true;
                 }
             }else{
+                //Ako se promijeni da nije označen, i ostalim se skida da su označeni :D
                 for( i = 1; i<this.props.komponente.zadaci; i++){
                     
                     k=i+1;
@@ -96,15 +107,14 @@ class DodavanjeTipovaFileova extends React.Component {
     }
 
     render() {
-        //console.log(this.props.komponente.ime);
+        //Ovako se pristupa onim props i komponentama što sam od Petra uzela
         var kk = this.props.komponente.ime;
 
+        //Pravim niz za prvi red one tabele gdje piše Naziv zadaće, Zadatak 1, Zadatak 2 itd.
         var kolone  = [];
         for(var i=1;i<=this.props.komponente.zadaci;i++){
             kolone.push("Zadatak " + i);
         }
-
-        //console.log(kolone)
 
         return(        
             <div>
@@ -112,6 +122,8 @@ class DodavanjeTipovaFileova extends React.Component {
                     <h1>Tipovi fileova za svaki zadatak</h1>
                     <FormGroup tag="fieldset">
                         <legend>Da li svi zadaci imaju iste tipove fileova:</legend>
+
+                        {/*Ovdje se provjerava na onChange je li označeno DA ili NE */}
                         <CustomInput type="switch" id="switchTip" name="customSwitch" label="DA"  onChange={this.istiTipoviFileova} />
                     </FormGroup>
                     <FormGroup>
@@ -119,16 +131,25 @@ class DodavanjeTipovaFileova extends React.Component {
                             <thead>
                                 <tr className="bg-primary text-light">
                                     <th>Naziv zadaće</th>
+                                    {/*Ovim prolazim kroz onaj niz kolona i pravim kolone :D */}
                                     {kolone.map(jedno => <th scope="col" key={jedno}>{jedno}</th>)}
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    {/*Tu samo dodijeli ovu napravkjenu varijablu i kako se kod petra kuca ovdje će se prikazivati :D*/}
                                     <th scope="row">{kk}</th>
 
+                                {/*Prolazim kroz sve kolone, ovo jedno je jedan element tog niza kolone, 
+                                i pomoću map se izdvajaju ti elementi. pravim novu kolonu i u svaku kolonu stavljam ove iste checkboxove
+                                */}
                                 {   
                                     kolone.map(jedno => <th scope="col" > 
                                         <td>
+                                            {/*Za svaki ovaj checkbox pojedinačno  dodijelim tipa atribut jedno = Zadatak1 i svakom checkboxu dodijelim
+                                            novi id sa ekstenzijom, i onda na onChange mi je trebalo dvije stvari da se odrade pa imam ovu funkciju.
+                                            Tu postavim ovu eksten iz statea i gore joj mogu pristupati i pozovem ovu označi šta treba :D i tako za svaki checkbox :D
+                                            */}
                                             <FormGroup check  >
                                             <Input type="checkbox" id={jedno + "pdf"} onChange = { (e) => { this.state.eksten="pdf"; this.oznaciStaTreba();  } }/>{' '}
                                                 <Label check className="ml-4">

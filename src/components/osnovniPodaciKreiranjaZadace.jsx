@@ -1,5 +1,5 @@
 import React from 'react'
-import { Badge, Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
+import { Badge, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 import DodavanjeTipovaFileova from './dodavanjeTipovaFileova'
 import BodoviZadaca from './bodovi_zadaca'
@@ -10,13 +10,14 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
     constructor(props){
         super(props)
 
+        //Trebao je naziv i broj zadataka za Edinin i Medinin dio pa se ovdje čuva
         this.state = {
             brojZadataka: '1',
             naziv: 'Naziv'
         }
     }
 
-
+//Ovim se postavlja broj zadataka iz state na onaj iz inputa  i ovaj dio pozivam na onChange tog inputa
     handleInputChange = (event) =>{
         event.preventDefault()
         this.setState({
@@ -24,6 +25,7 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
         })
     }
 
+    //Ovim se postavlja naziv iz state na onaj iz inputa i ovaj dio pozivam na onChange tog inputa
     nazivChange = (event) =>{
         this.setState({
             naziv: event.target.value
@@ -32,6 +34,7 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
 
     render() {
 
+        //Ovu komponentu sam napravila da bih je proslijedila kao props svojoj komponenti
         var komponente = {
             ime: this.state.naziv,
             zadaci: this.state.brojZadataka
@@ -45,6 +48,7 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
                             <h1>Kreiraj zadaću <Badge color="primary">:)</Badge></h1>
                             <FormGroup>
                                 <Label for="naziv">Naziv:</Label>
+                                {/*Tu ispod se nalazi onChange za spremanje naziva */}
                                 <Input type="text" name="naziv" id="naziv" placeholder="Upišite naziv" onChange = {this.nazivChange}/>
                             </FormGroup>
                             <FormGroup>
@@ -65,15 +69,18 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="brojZadataka">Broj zadataka:</Label>
+                                {/*Tu ispod se nalazi onChange za spremanje brojaZadataka */}
                                 <Input defaultValue='1' type="number" pattern='[0-9]{0,5}' name="brojZadataka" id="brojZadataka" onChange = {this.handleInputChange}/>
                             </FormGroup>
                         </Form>
                     </div>
                     <div class="col-lg-6 col-sm-12 right">
+                    {/* Tu proslijeđujem pomoću props one komponente koje mi trebaju u Edininu komponentu - kasnije se pomoću props pristupa*/}
                         <DodavanjeTipovaFileova komponente = {komponente}/>
                     </div>
                 </div>
                 <div>
+                     {/* Tu proslijeđujem pomoću one komponente koje mi trebaju u Medininu  komponentu*/}
                     <BodoviZadaca broj_zad={komponente.zadaci} ></BodoviZadaca>
                 </div>
             </div>  
