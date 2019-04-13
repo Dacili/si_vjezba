@@ -4,10 +4,9 @@ import '../bootstrap.css';
 
 
 class DodavanjeTipovaFileova extends React.Component {
+
     constructor(props){
         super(props)
-    
-
         this.state = {
             oznaceno : false,
             eksten : "pdf"
@@ -15,13 +14,13 @@ class DodavanjeTipovaFileova extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-        dropdownOpen: false
+            dropdownOpen: false
         };
     }
 
     toggle() {
         this.setState(prevState => ({
-        dropdownOpen: !prevState.dropdownOpen
+            dropdownOpen: !prevState.dropdownOpen
         }));
     }
 
@@ -52,10 +51,10 @@ class DodavanjeTipovaFileova extends React.Component {
         else{
             this.setState({oznaceno:false});
 
-             niz = ["pdf","doc","m","zip","txt"];
+            niz = ["pdf","doc","m","zip","txt"];
 
             for( j=0;j<niz.length;j++){
-                 s = document.getElementById("Zadatak 1" + niz[j]);
+                s = document.getElementById("Zadatak 1" + niz[j]);
                 s.checked=false;
             }
 
@@ -69,7 +68,6 @@ class DodavanjeTipovaFileova extends React.Component {
                     s.checked=false;
                 }
             }
-
         }
     }
 
@@ -89,17 +87,13 @@ class DodavanjeTipovaFileova extends React.Component {
             }else{
                 for( i = 1; i<this.props.komponente.zadaci; i++){
                     
-                     k=i+1;
-                     s = document.getElementById("Zadatak " + k + this.state.eksten);
+                    k=i+1;
+                    s = document.getElementById("Zadatak " + k + this.state.eksten);
                     s.checked = false;
                 }
-
             }
         }
-        
-
     }
-
 
     render() {
         //console.log(this.props.komponente.ime);
@@ -113,34 +107,28 @@ class DodavanjeTipovaFileova extends React.Component {
         //console.log(kolone)
 
         return(        
-           <div>
-            <Form>
-            <h1>Tipovi fileova za svaki zadatak</h1>
-
+            <div>
+                <Form>
+                    <h1>Tipovi fileova za svaki zadatak</h1>
                     <FormGroup tag="fieldset">
                         <legend>Da li svi zadaci imaju iste tipove fileova:</legend>
                         <CustomInput type="switch" id="switchTip" name="customSwitch" label="DA"  onChange={this.istiTipoviFileova} />
                     </FormGroup>
-
                     <FormGroup>
-
                         <Table className="table table-bordered text-center bg-active border-solid">
                             <thead>
                                 <tr className="bg-primary text-light">
-                                <th>Naziv zadaće</th>
-                                {
-                                 kolone.map(jedno => <th scope="col" key={jedno}>{jedno}</th>)
-                                }
+                                    <th>Naziv zadaće</th>
+                                    {kolone.map(jedno => <th scope="col" key={jedno}>{jedno}</th>)}
                                 </tr>
                             </thead>
-
                             <tbody>
                                 <tr>
                                     <th scope="row">{kk}</th>
 
-                                {
+                                {   
                                     kolone.map(jedno => <th scope="col" > 
-                                    <td >
+                                        <td>
                                             <FormGroup check  >
                                             <Input type="checkbox" id={jedno + "pdf"} onChange = { (e) => { this.state.eksten="pdf"; this.oznaciStaTreba();  } }/>{' '}
                                                 <Label check className="ml-4">
@@ -175,21 +163,14 @@ class DodavanjeTipovaFileova extends React.Component {
                                                     .txt
                                                 </Label>
                                             </FormGroup>
-
-                                            </td>
-                                        
+                                        </td>    
                                     </th>)
                                 }
-
-
                                 </tr>
                             </tbody>
                         </Table>
-
                     </FormGroup>
-
-
-            </Form>      
+                </Form>      
            </div>
         )
     }
