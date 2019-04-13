@@ -56,8 +56,8 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
             
                     <FormGroup>
                         <Label for="vrijeme">Vrijeme roka predaje:</Label>
-                        <Input type="time" name="vrijeme" id="vrijeme" placeholder="time placeholder"/>
-                    </FormGroup>
+                        <Input type="time" name="vrijeme" id="vrijeme" placeholder="time placeholder" defaultValue='23:59' />
+                    </FormGroup> 
                     <FormGroup>
                         <Label for="file">Postavka:</Label>
                         <Input type="file" name="file" id="file" />

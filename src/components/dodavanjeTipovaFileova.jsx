@@ -42,8 +42,8 @@ class DodavanjeTipovaFileova extends React.Component {
                     
                 var k=i+1;
 
-                for(var j=0;j<niz.length;j++){
-                    var s = document.getElementById("Zadatak " + k + niz[j]);
+                for( j=0;j<niz.length;j++){
+                     s = document.getElementById("Zadatak " + k + niz[j]);
                     s.disabled = true;
                     s.checked=false;
                 }
@@ -52,19 +52,19 @@ class DodavanjeTipovaFileova extends React.Component {
         else{
             this.setState({oznaceno:false});
 
-            var niz = ["pdf","doc","m","zip","txt"];
+             niz = ["pdf","doc","m","zip","txt"];
 
-            for(var j=0;j<niz.length;j++){
-                var s = document.getElementById("Zadatak 1" + niz[j]);
+            for( j=0;j<niz.length;j++){
+                 s = document.getElementById("Zadatak 1" + niz[j]);
                 s.checked=false;
             }
 
-            for(var i = 1; i<this.props.komponente.zadaci; i++){
+            for( i = 1; i<this.props.komponente.zadaci; i++){
                     
-                var k=i+1;
+                 k=i+1;
 
-                for(var j=0;j<niz.length;j++){
-                    var s = document.getElementById("Zadatak " + k + niz[j]);
+                for(j=0;j<niz.length;j++){
+                     s = document.getElementById("Zadatak " + k + niz[j]);
                     s.disabled = false;
                     s.checked=false;
                 }
@@ -75,7 +75,7 @@ class DodavanjeTipovaFileova extends React.Component {
 
     oznaciStaTreba = () => {
 
-        if(this.state.oznaceno==true){
+        if(this.state.oznaceno===true){
 
             var p = document.getElementById("Zadatak 1" + this.state.eksten);
             console.log("da,ne" + this.state.eksten);
@@ -87,10 +87,10 @@ class DodavanjeTipovaFileova extends React.Component {
                     s.checked = true;
                 }
             }else{
-                for(var i = 1; i<this.props.komponente.zadaci; i++){
+                for( i = 1; i<this.props.komponente.zadaci; i++){
                     
-                    var k=i+1;
-                    var s = document.getElementById("Zadatak " + k + this.state.eksten);
+                     k=i+1;
+                     s = document.getElementById("Zadatak " + k + this.state.eksten);
                     s.checked = false;
                 }
 
