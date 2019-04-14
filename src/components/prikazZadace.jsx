@@ -55,7 +55,8 @@ class PrikazZadace extends React.Component {
             </tbody>
           </Table>
         </FormGroup>
-        <Baza data={this.state.data}/>
+        <Baza data={this.state.data}
+        fun={this.props.onZadacaCreateDataSet}/>
       </div>
     );
   }

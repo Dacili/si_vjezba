@@ -31,11 +31,12 @@ class MainContent extends React.Component {
       zadacaPreview: false
     });
   };
-  zadacaCreateClick = () => {
+  zadacaCreateClick = (data) => {
     this.setState({
       predmetView: false,
       zadacaCreate: true,
-      zadacaPreview: false
+      zadacaPreview: false,
+      zadacaPreviewData: data
     });
   };
 
@@ -57,14 +58,22 @@ class MainContent extends React.Component {
             class="p-1 d-flex justify-content-center"
           >
             <OsnovniPodaciKreiranjaZadace
-              onZadacaPreviewDataSet={this.zadacaPreviewClick}
-              onZadacaCreateDataSet={this.zadacaCreateClick}
+              onZadacaPreviewDataSet={this.zadacaPreviewClick}     
+              data={this.state.zadacaPreviewData}
+              brojZadataka={(()=>{
+                switch(this.state.zadacaPreviewData.listaBodova.length){
+                  case 0 : return 1
+                  default: return this.state.zadacaPreviewData.listaBodova.length
+                }
+              })()}  
             />
           </div>
         )}
 
         {this.state.zadacaPreview && (
-          <PrikazZadace data={this.state.zadacaPreviewData} />
+          <PrikazZadace data={this.state.zadacaPreviewData}
+          onZadacaCreateDataSet={this.zadacaCreateClick} 
+          />
         )}
 
         {this.state.zadacaCreate && (

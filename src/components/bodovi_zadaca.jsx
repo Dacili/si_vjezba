@@ -14,6 +14,7 @@ class BodoviZadaca extends Component {
       bodoviPoZadacima: [],
       ukupnoBodovaZadaca: 0
     };
+
   }
 
   state = {

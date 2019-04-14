@@ -9,19 +9,14 @@ import "./../bootstrap.css";
 class OsnovniPodaciKreiranjaZadace extends React.Component {
   constructor(props) {
     super(props);
-
+      console.log(this.props.data);
+      console.log(this.props.brojZadataka);
     //Trebao je naziv i broj zadataka za Edinin i Medinin dio pa se ovdje čuva
     this.state = {
-      brojZadataka: "1",
       naziv: "Naziv",
+      brojZadataka: this.props.brojZadataka,
       // Podaci koji se trebaju prikupiti od drugih komponenti za PrikazZadace
-      zadacaPreviewData: {
-        naziv: "",
-        datum: "",
-        vrijeme: "23:59",
-        listaBodova: [],
-        listaTipova: []
-      }
+      zadacaPreviewData: this.props.data
     };
   }
 
@@ -108,6 +103,7 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
                 <Label for="naziv">Naziv:</Label>
                 {/*Tu ispod se nalazi onChange za spremanje naziva */}
                 <Input
+                  value={this.state.zadacaPreviewData.naziv}
                   type="text"
                   name="naziv"
                   id="naziv"
@@ -118,6 +114,7 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
               <FormGroup>
                 <Label for="datum">Datum roka predaje:</Label>
                 <Input
+                  value={this.state.zadacaPreviewData.datum}
                   type="date"
                   name="datum"
                   id="datum"
@@ -128,11 +125,17 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
               <FormGroup>
                 <Label for="vrijeme">Vrijeme roka predaje:</Label>
                 <Input
+                  value={(()=>{
+                      switch(this.state.zadacaPreviewData.vrijeme){
+                        case "": return "23:59"
+                        default: return this.state.zadacaPreviewData.vrijeme
+                      }
+                  })()}
+                    
                   type="time"
                   name="vrijeme"
                   id="vrijeme"
                   placeholder="time placeholder"
-                  defaultValue="23:59"
                   onChange={this.vrijemeChange}
                 />
               </FormGroup>
@@ -145,7 +148,7 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
                 <Label for="brojZadataka">Broj zadataka:</Label>
                 {/*Tu ispod se nalazi onChange za spremanje brojaZadataka */}
                 <Input
-                  defaultValue="1"
+                  value={this.state.brojZadataka}
                   type="number"
                   pattern="[0-9]{0,5}"
                   name="brojZadataka"
@@ -168,6 +171,7 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
           <BodoviZadaca
             broj_zad={komponente.zadaci}
             setListaBodova={this.listaBodovaSet}
+            listaBodova={this.state.zadacaPreviewData.listaBodova}
           />
         </div>
         <button
