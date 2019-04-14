@@ -1,91 +1,185 @@
-import React from 'react'
-import { Badge, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import React from "react";
+import { Badge, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 
-import DodavanjeTipovaFileova from './dodavanjeTipovaFileova'
-import BodoviZadaca from './bodovi_zadaca'
+import DodavanjeTipovaFileova from "./dodavanjeTipovaFileova";
+import BodoviZadaca from "./bodovi_zadaca";
 
-import './../bootstrap.css'; 
+import "./../bootstrap.css";
 
 class OsnovniPodaciKreiranjaZadace extends React.Component {
-    constructor(props){
-        super(props)
+  constructor(props) {
+    super(props);
 
-        //Trebao je naziv i broj zadataka za Edinin i Medinin dio pa se ovdje čuva
-        this.state = {
-            brojZadataka: '1',
-            naziv: 'Naziv'
-        }
-    }
+    //Trebao je naziv i broj zadataka za Edinin i Medinin dio pa se ovdje čuva
+    this.state = {
+      brojZadataka: "1",
+      naziv: "Naziv",
+      // Podaci koji se trebaju prikupiti od drugih komponenti za PrikazZadace
+      zadacaPreviewData: {
+        naziv: "",
+        datum: "",
+        vrijeme: "23:59",
+        listaBodova: [],
+        listaTipova: []
+      }
+    };
+  }
 
-//Ovim se postavlja broj zadataka iz state na onaj iz inputa  i ovaj dio pozivam na onChange tog inputa
-    handleInputChange = (event) =>{
-        event.preventDefault()
-        this.setState({
-            brojZadataka: event.target.value
-        })
-    }
+  //Ovim se postavlja broj zadataka iz state na onaj iz inputa  i ovaj dio pozivam na onChange tog inputa
+  handleInputChange = event => {
+    event.preventDefault();
+    this.setState({
+      brojZadataka: event.target.value
+    });
+  };
 
-    //Ovim se postavlja naziv iz state na onaj iz inputa i ovaj dio pozivam na onChange tog inputa
-    nazivChange = (event) =>{
-        this.setState({
-            naziv: event.target.value
-        })
-    }
+  //Ovim se postavlja naziv iz state na onaj iz inputa i ovaj dio pozivam na onChange tog inputa
+  nazivChange = event => {
+    let zadacaPreviewDataTemp = JSON.parse(
+      JSON.stringify(this.state.zadacaPreviewData)
+    );
+    zadacaPreviewDataTemp.naziv = event.target.value;
+    this.setState({
+      naziv: event.target.value,
+      zadacaPreviewData: zadacaPreviewDataTemp
+    });
+  };
+  // funkcija za prikupljannja vremena
+  vrijemeChange = event => {
+    let zadacaPreviewDataTemp = JSON.parse(
+      JSON.stringify(this.state.zadacaPreviewData)
+    );
+    zadacaPreviewDataTemp.vrijeme = event.target.value;
+    this.setState({
+      zadacaPreviewData: zadacaPreviewDataTemp
+    });
+  };
+  // funkcija za prikupljanje datuma kada se desi promjena
+  datumChange = event => {
+    let zadacaPreviewDataTemp = JSON.parse(
+      JSON.stringify(this.state.zadacaPreviewData)
+    );
+    zadacaPreviewDataTemp.datum = event.target.value;
+    this.setState({
+      zadacaPreviewData: zadacaPreviewDataTemp
+    });
+  };
+  // funckija za proslijedjivanje podataka na klik preview zadace
+  zadacaPreviewClick = () => {
+    this.props.onZadacaPreviewDataSet(this.state.zadacaPreviewData);
+  };
+  // funkcija za postavljanje liste bodova po zadacima
+  listaBodovaSet = data => {
+    let zadacaPreviewDataTemp = JSON.parse(
+      JSON.stringify(this.state.zadacaPreviewData)
+    );
+    zadacaPreviewDataTemp.listaBodova = data;
+    this.setState({
+      zadacaPreviewData: zadacaPreviewDataTemp
+    });
+  };
+  // funkcija za postavljanje liste tipova fajlova po zadacima
+  listaTipovaSet = data => {
+    let zadacaPreviewDataTemp = JSON.parse(
+      JSON.stringify(this.state.zadacaPreviewData)
+    );
+    zadacaPreviewDataTemp.listaTipova = data;
+    this.setState({
+      zadacaPreviewData: zadacaPreviewDataTemp
+    });
+  };
 
-    render() {
+  render() {
+    //Ovu komponentu sam napravila da bih je proslijedila kao props svojoj komponenti
+    var komponente = {
+      ime: this.state.naziv,
+      zadaci: this.state.brojZadataka
+    };
 
-        //Ovu komponentu sam napravila da bih je proslijedila kao props svojoj komponenti
-        var komponente = {
-            ime: this.state.naziv,
-            zadaci: this.state.brojZadataka
-        };
+    return (
+      <div>
+        <div class="p-1 d-flex justify-content-center mb-3">
+          <div className="formaKreiranjaZadace" class="col-lg-6 col-sm-12 left">
+            <Form>
+              <h1>
+                Kreiraj zadaću <Badge color="primary">:)</Badge>
+              </h1>
+              <FormGroup>
+                <Label for="naziv">Naziv:</Label>
+                {/*Tu ispod se nalazi onChange za spremanje naziva */}
+                <Input
+                  type="text"
+                  name="naziv"
+                  id="naziv"
+                  placeholder="Upišite naziv"
+                  onChange={this.nazivChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="datum">Datum roka predaje:</Label>
+                <Input
+                  type="date"
+                  name="datum"
+                  id="datum"
+                  onChange={this.datumChange}
+                />
+              </FormGroup>
 
-        return(      
-            <div>
-                <div class="p-1 d-flex justify-content-center mb-3">
-                    <div className = "formaKreiranjaZadace" class="col-lg-6 col-sm-12 left">
-                        <Form>
-                            <h1>Kreiraj zadaću <Badge color="primary">:)</Badge></h1>
-                            <FormGroup>
-                                <Label for="naziv">Naziv:</Label>
-                                {/*Tu ispod se nalazi onChange za spremanje naziva */}
-                                <Input type="text" name="naziv" id="naziv" placeholder="Upišite naziv" onChange = {this.nazivChange}/>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="datum">Datum roka predaje:</Label>
-                                <Input type="date" name="datum" id="datum"/>
-                            </FormGroup>
-                    
-                            <FormGroup>
-                                <Label for="vrijeme">Vrijeme roka predaje:</Label>
-                                <Input type="time" name="vrijeme" id="vrijeme" placeholder="time placeholder" defaultValue='23:59' />
-                            </FormGroup> 
-                            <FormGroup>
-                                <Label for="file">Postavka:</Label>
-                                <Input type="file" name="file" id="file" />
-                                <FormText color="muted">
-                                    Ovo je opcionalna mogućnost
-                                </FormText>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="brojZadataka">Broj zadataka:</Label>
-                                {/*Tu ispod se nalazi onChange za spremanje brojaZadataka */}
-                                <Input defaultValue='1' type="number" pattern='[0-9]{0,5}' name="brojZadataka" id="brojZadataka" onChange = {this.handleInputChange}/>
-                            </FormGroup>
-                        </Form>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 right">
-                    {/* Tu proslijeđujem pomoću props one komponente koje mi trebaju u Edininu komponentu - kasnije se pomoću props pristupa*/}
-                        <DodavanjeTipovaFileova komponente = {komponente}/>
-                    </div>
-                </div>
-                <div>
-                     {/* Tu proslijeđujem pomoću one komponente koje mi trebaju u Medininu  komponentu*/}
-                    <BodoviZadaca broj_zad={komponente.zadaci} ></BodoviZadaca>
-                </div>
-            </div>  
-        )
-    }
+              <FormGroup>
+                <Label for="vrijeme">Vrijeme roka predaje:</Label>
+                <Input
+                  type="time"
+                  name="vrijeme"
+                  id="vrijeme"
+                  placeholder="time placeholder"
+                  defaultValue="23:59"
+                  onChange={this.vrijemeChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="file">Postavka:</Label>
+                <Input type="file" name="file" id="file" />
+                <FormText color="muted">Ovo je opcionalna mogućnost</FormText>
+              </FormGroup>
+              <FormGroup>
+                <Label for="brojZadataka">Broj zadataka:</Label>
+                {/*Tu ispod se nalazi onChange za spremanje brojaZadataka */}
+                <Input
+                  defaultValue="1"
+                  type="number"
+                  pattern="[0-9]{0,5}"
+                  name="brojZadataka"
+                  id="brojZadataka"
+                  onChange={this.handleInputChange}
+                />
+              </FormGroup>
+            </Form>
+          </div>
+          <div class="col-lg-6 col-sm-12 right">
+            {/* Tu proslijeđujem pomoću props one komponente koje mi trebaju u Edininu komponentu - kasnije se pomoću props pristupa*/}
+            <DodavanjeTipovaFileova
+              komponente={komponente}
+              setListaTipova={this.listaTipovaSet}
+            />
+          </div>
+        </div>
+        <div>
+          {/* Tu proslijeđujem pomoću one komponente koje mi trebaju u Medininu  komponentu*/}
+          <BodoviZadaca
+            broj_zad={komponente.zadaci}
+            setListaBodova={this.listaBodovaSet}
+          />
+        </div>
+        <button
+          type="button"
+          className="btn btn-secondary ml-3"
+          onClick={this.zadacaPreviewClick}
+        >
+          Preview zadace
+        </button>
+      </div>
+    );
+  }
 }
 
-export default OsnovniPodaciKreiranjaZadace
+export default OsnovniPodaciKreiranjaZadace;
