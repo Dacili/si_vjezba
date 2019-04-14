@@ -156,6 +156,8 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
                   pattern="[0-9]{0,5}"
                   name="brojZadataka"
                   id="brojZadataka"
+                  min={1}
+                  max={10}
                   onChange={this.handleInputChange}
                 />
               </FormGroup>
