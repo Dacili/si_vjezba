@@ -20,7 +20,8 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
         datum: "",
         vrijeme: "23:59",
         listaBodova: [],
-        listaTipova: []
+        listaTipova: [],
+        
       }
     };
   }
@@ -182,11 +183,12 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
         </button>
 
         <button
+          id="Kreiraj"
           type="button"
-          className="btn bg-primary ml-3"
+          className="btn btn-secondary ml-3"
           onClick={this.zadacaPreviewClick}
         >
-          Preview zadaće
+          Kreiraj zadaću
         </button>
       </div>
     );
