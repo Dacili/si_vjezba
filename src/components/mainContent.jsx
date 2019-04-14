@@ -3,6 +3,8 @@ import "./mainContent.css";
 import OsnovniPodaciKreiranjaZadace from "./osnovniPodaciKreiranjaZadace";
 import PrikazZadace from "./prikazZadace";
 
+import { Button } from "reactstrap";
+
 //import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 //import Globalize from 'globalize';
 //import globalizeLocalizer from 'react-widgets-globalize';
@@ -59,27 +61,35 @@ class MainContent extends React.Component {
             <OsnovniPodaciKreiranjaZadace
               onZadacaPreviewDataSet={this.zadacaPreviewClick}
             />
+           
           </div>
         )}
 
+         
         {this.state.zadacaPreview && (
           <PrikazZadace data={this.state.zadacaPreviewData} />
         )}
-
-        {this.state.zadacaCreate && (
-          <button onClick={this.predmetViewClick} id="dugme">
-            PovratakNaPredmet
-          </button>
-        )}
-        {this.state.predmetView && (
+        {/*this.state.zadacaCreate && (
           <button
             type="button"
-            className="btn btn-secondary ml-3 "
+            className="btn bg-primary ml-3 "
+            onClick={this.predmetViewClick} id="dugme">
+            Povratak 
+          </button>
+        )*/} 
+        
+
+        {this.state.predmetView && (
+          <Button
+            type="button"
+            className="btn bg-primary ml-3 "
             onClick={this.zadacaCreateClick}
           >
-            Preview zadace
-          </button>
+            Preview zadaće
+          </Button>
         )}
+        
+
       </div>
     );
   }
