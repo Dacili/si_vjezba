@@ -60,6 +60,7 @@ class MainContent extends React.Component {
           >
             <OsnovniPodaciKreiranjaZadace
               onZadacaPreviewDataSet={this.zadacaPreviewClick}
+              onZadacaCreateDataSet={this.zadacaCreateClick}
             />
            
           </div>
