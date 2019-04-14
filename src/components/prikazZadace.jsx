@@ -3,6 +3,7 @@ import React from "react";
 import { CustomInput, Form, FormGroup, Label, Input, Table, Button } from "reactstrap";
 import "../bootstrap.css";
 import OsnovniPodaciKreiranjaZadace from "./osnovniPodaciKreiranjaZadace";
+import Baza from "./baza";
 
 function validiraj(ime,datum,brZ,vrijeme,bodovi,tipovi){
   const errors = [];
