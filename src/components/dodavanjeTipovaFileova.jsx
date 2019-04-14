@@ -111,7 +111,11 @@ class DodavanjeTipovaFileova extends React.Component {
     return (
       <div>
         <Form>
-          <h1>Tipovi fileova za svaki zadatak</h1>
+          <div className="card-header bg-primary text-light  mb-4">
+            <h4>
+              <b>Tipovi fileova za svaki zadatak</b>
+            </h4>
+          </div>
           <FormGroup tag="fieldset">
             <legend>Da li svi zadaci imaju iste tipove fileova:</legend>
 

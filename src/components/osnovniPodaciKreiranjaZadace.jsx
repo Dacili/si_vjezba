@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Badge, Form, FormGroup, Label, Input, FormText, Button } from "reactstrap";
 
 import DodavanjeTipovaFileova from "./dodavanjeTipovaFileova";
 import BodoviZadaca from "./bodovi_zadaca";
@@ -63,6 +63,7 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
   zadacaPreviewClick = () => {
     this.props.onZadacaPreviewDataSet(this.state.zadacaPreviewData);
   };
+
   // funkcija za postavljanje liste bodova po zadacima
   listaBodovaSet = data => {
     let zadacaPreviewDataTemp = JSON.parse(
@@ -96,9 +97,11 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
         <div class="p-1 d-flex justify-content-center mb-3">
           <div className="formaKreiranjaZadace" class="col-lg-6 col-sm-12 left">
             <Form>
-              <h1>
-                Kreiraj zadaću <Badge color="primary">:)</Badge>
-              </h1>
+            <div className="card-header bg-primary text-light mb-4">
+              <h4>
+                <b>Kreiraj zadaću</b>
+              </h4>
+            </div>
               <FormGroup>
                 <Label for="naziv">Naziv:</Label>
                 {/*Tu ispod se nalazi onChange za spremanje naziva */}
@@ -174,12 +177,21 @@ class OsnovniPodaciKreiranjaZadace extends React.Component {
             listaBodova={this.state.zadacaPreviewData.listaBodova}
           />
         </div>
+
         <button
+            type="button"
+            className="btn bg-primary ml-3"
+            onClick={this.predmetPreviewClick} id="dugme">
+            Povratak 
+        </button>
+
+        <button
+          id="Kreiraj"
           type="button"
           className="btn btn-secondary ml-3"
           onClick={this.zadacaPreviewClick}
         >
-          Preview zadace
+          Kreiraj zadaću
         </button>
       </div>
     );

@@ -133,7 +133,7 @@ class BodoviZadaca extends Component {
             />
             <button
               type="button"
-              className="btn btn-secondary ml-3 "
+              className="btn bg-primary ml-3 "
               onClick={this.klik_isti_br_bod}
             >
               OK
