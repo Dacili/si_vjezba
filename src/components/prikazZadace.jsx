@@ -1,6 +1,7 @@
 import React from "react";
 import { CustomInput, Form, FormGroup, Label, Input, Table } from "reactstrap";
 import "../bootstrap.css";
+import Baza from './baza'
 
 class PrikazZadace extends React.Component {
   constructor(props) {
@@ -9,7 +10,6 @@ class PrikazZadace extends React.Component {
       data: this.props.data
     };
   }
-
   render() {
     var kolone = [];
     // zadaciCelije prestavlja niz sačinjen od pojedinačnih elemenata u redu tabele koji se sastoji
@@ -55,6 +55,7 @@ class PrikazZadace extends React.Component {
             </tbody>
           </Table>
         </FormGroup>
+        <Baza data={this.state.data}/>
       </div>
     );
   }
